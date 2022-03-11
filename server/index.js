@@ -1,23 +1,22 @@
 const express = require('express');
 const cors = require('cors');
+const UserRoutes = require("./src/api/user/user.routes");
 const { setError } = require('./src/utils/errors');
 const { connect } = require('./src/utils/db');
+
+// Port
+const PORT = process.env.PORT || 8080;
 
 // Initialize the app
 connect();
 const app = express();
-app.use(cors());
 
-
-//Routes
-
-// Api documentation
-app.use('/api', (req, res, next) => {
-    return res.json(documentation);
-});
+// Api documentation TODO
+//app.use('/api', (req, res, next) => {
+//    return res.json(documentation);
+//});
 
 // Headers configuration
-
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH')
     res.header('Access-Control-Allow-Credentials', true)
@@ -26,36 +25,26 @@ app.use((req, res, next) => {
 })
 
 // Proxies configuration 
-
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:4200'],
     credentials: true
 }));
 
 // Data limit
-
 app.use(express.json({ limit: '5mb' }))
 
-
 // Uri configuration
-
 app.use(express.urlencoded({
     limit: '5mb',
     extended: true
 }));
 
-
-// Port
-
-const PORT = process.env.PORT || 8080;
+//Routes
+app.use("/api/users", UserRoutes);
 
 // Error handling
-
 app.use('*', (req, res, next) => {
-    const error = new Error();
-    error.status = 404;
-    error.message = 'Route not found';
-    return next(error);
+    return next(setError(404, "Route not found"));
 });
 
 app.use((error, req, res, next) => {
