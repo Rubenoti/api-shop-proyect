@@ -7,11 +7,11 @@ const userSchema = new mongoose.Schema(
     {
         firstName: { type: String, required: true },
         lastName: { type: String, required: false },
-        email: { type: String, required: false, trim: true, unique: true },
+        email: { type: String, required: true, trim: true, unique: true },
         phone: { type: Number, required: false },
-        password: { type: String, required: false, trim: true },
+        password: { type: String, required: true, trim: true },
         address: { type: String, required: false, trim: true },
-        //shoppingCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+        shoppingCart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'products', required: false, trim: true }],
     }, {
     timestamps: true
 });

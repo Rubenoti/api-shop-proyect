@@ -1,20 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const UserRoutes = require("./src/api/user/user.routes");
+const ProductRoutes = require("./src/api/products/product.routes");
 const { setError } = require('./src/utils/errors');
 const { connect } = require('./src/utils/db');
-
+const { configCloudinary } = require('./src/utils/cloudinary');
+const documentation = require('./src/utils/documentacion/api.json');
 // Port
 const PORT = process.env.PORT || 8080;
 
 // Initialize the app
 connect();
 const app = express();
-
-// Api documentation TODO
-//app.use('/api', (req, res, next) => {
-//    return res.json(documentation);
-//});
+configCloudinary();
+// Api documentation 
+app.use('/api', (req, res, next) => {
+    return res.json(documentation);
+});
 
 // Headers configuration
 app.use((req, res, next) => {
@@ -41,6 +43,7 @@ app.use(express.urlencoded({
 
 //Routes
 app.use("/api/users", UserRoutes);
+app.use("/api/products", ProductRoutes);
 
 // Error handling
 app.use('*', (req, res, next) => {
@@ -56,5 +59,5 @@ app.disable('x-powered-by');
 
 // Listen
 const server = app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}, http://localhost:${PORT}`);
 });

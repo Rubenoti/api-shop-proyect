@@ -1,0 +1,65 @@
+{
+    "Products": "/api/products",
+    "schema": {
+        "name": "String",
+        "description": "String",
+        "price": "Number",
+        "image": "String",
+        "category": "String"
+    },
+     "endopoints": [
+        {
+            "action": "GET", 
+            "URL": "/api/products/"
+        },
+        {
+            "action": "GET",
+            "URL": "/api/products/id"
+        },
+        {
+            "action": "POST",
+            "URL": "/api/products/"
+        },
+        {
+            "action": "PACH",
+            "URL": "/api/products/id"
+        },
+        {
+            "action": "DELETE",
+            "URL": "/api/products/id"
+        }
+
+    ],
+    "User": "/api/users",
+    "$schema": {
+        "firstname": "String",
+        "lastName": "String",
+        "email": "String",
+        "password": "String",
+        "phone":"Number" ,
+        "address":"String" ,
+        "shoppingCart":"String" 
+    },
+    "$endopoints": [
+        {
+            "action": "GET", 
+            "URL": "/api/users/"
+        },
+        {
+            "action": "GET",
+            "URL": "/api/users/id"
+        },
+        {
+            "action": "POST",
+            "URL": "/api/users/"
+        },
+        {
+            "action": "PACH",
+            "URL": "/api/users/id"
+        },
+        {
+            "action": "DELETE",
+            "URL": "/api/users/id"
+        }
+    ]
+}
